@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/ae13f6fb78.js" crossorigin="anonymous"></script>
+    <script defer src="main.js"></script>
+    <title>Library</title>
+</head>
+<body>
+    <main>
+        <header>Welcome to the Library</header>
+        <div class="mainCont">
+            <div class="addForm">
+                <h3>Add New Book</h3>
+                <form class="libForm">
+                    <input class="bookInput" type="text" id="title" placeholder="Title" required>
+                    <input class="bookInput" type="text" id="author" placeholder="Author" required>
+                    <input class="bookInput" type="number" min="1" max="10000" id="pages" placeholder="Number of Pages" required>
+                    <div>
+                        <label for="read">Book read?</label>
+                        <input type="checkbox" id="read" name="read">
+                    </div>
+                    <button type="submit" class="submitButton">Add</button>
+                </form> 
+            </div>
+            <div class="libDisp">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th># of pages</th>
+                            <th>Read?</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <footer></footer>
+    </main>
+</body>
+</html>
