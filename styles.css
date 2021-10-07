@@ -1,58 +1,168 @@
+html {
+  font-family: "Montserrat", sans-serif;
+  background-color: #dda15e;
+}
 header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: brown;
-    color: white;
-    height: 100px;
-    font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #606c38;
+  color: #fefae0;
+  height: 100px;
+  font-size: 48px;
+  font-weight: 300;
+  border-bottom: 5px solid #283618;
+  border-radius: 10px;
+  /* padding-right: 550px; */
+}
+
+header i, header p {
+  margin: 15px;
+  position: relative;
+  right: 250px;
 }
 
 div.mainCont {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: teal;
-    height: 600px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* background-color: #fefae0; */
+  height: 600px;
 }
 
 div.addForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 200px;
-    width: 400px;
-    background-color: thistle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: min-content;
+  width: 250px;
+  background-color: #bc6c25;
+  margin: 25px;
+  color: #fefae0;
+  border: 2px solid #fefae0;
+  border-radius: 10px;
+}
+
+div.addForm h3 {
+  margin: 20px 0px 10px 0px;
 }
 
 form.libForm {
-    display: flex;
-    /* flex-basis: 100%; */
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    
+  display: flex;
+  /* flex-basis: 100%; */
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 input.bookInput {
-    width: 50%;
+  width: 75%;
+  padding: 5px;
+  margin: 10px 0px;
+  border: 2px solid #fefae0;
+  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 600;
+  background-color: hsl(32, 65%, 82%);
+  color: hsl(28, 67%, 14%);
+  transition: 0.2s all;
+}
+
+input.bookInput:hover {
+  background-color: hsl(32, 65%, 89%);
+  color: hsl(28, 67%, 9%);
+}
+
+/* Remove up/down buttons on text input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+form.libForm div {
+  margin: 10px 0px;
+}
+
+input#read {
+  margin: 0px 10px;
+  width: 15px;
+  height: 15px;
+}
+
+button.submitButton {
+  margin: 10px 0px 20px 0px;
+  width: 100px;
+  height: 35px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  border: 2px solid #fefae0;
+  border-radius: 10px;
+  background-color: hsl(32, 65%, 87%);
+  color: hsl(28, 67%, 14%);
+  transition: 0.2s all;
+}
+
+button.submitButton:hover {
+  -webkit-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  transform: scale(1.15);
+  background-color: hsl(32, 65%, 92%);
+  color: hsl(28, 67%, 9%);
+}
+
+button.submitButton:active {
+  background-color: hsl(32, 65, 62);
 }
 
 div.libDisp {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 400px;
-    width: 600px;
-    background-color: tomato;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: min-content;
+  width: 600px;
+  margin: 25px;
+  background-color: #bc6c25;
+  color: #fefae0;
+  border: 2px solid #fefae0;
+  border-radius: 10px;
 }
 
-table, 
-th {
-    width: 100%;
-    border: 1px solid;
+table {
+  width: 100%;
+  /* padding: 0px 10px 10px 10px; */
+  border-collapse: collapse;
 }
 
-th {
-    padding: 0px 10px;
+th,
+td {
+  /* border: 1px solid; */
+  text-align: center;
+  padding: 10px;
+  /* margin: 10px; */
+}
+
+tbody tr {
+  background-color: hsl(32, 65%, 77%);
+  color: hsl(28, 67%, 14%);
+}
+
+tbody tr:nth-child(even) {
+  background-color: hsl(32, 65%, 72%);
+}
+
+.fa-check-circle {
+  color: hsl(110, 100%, 27%);
+}
+
+.fa-times-circle {
+  color: hsl(0, 100%, 44%);
+}
+
+.fa-trash-alt {
+  color: hsl(0, 0%, 0%);
 }
