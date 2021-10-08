@@ -1,5 +1,6 @@
 let myLibrary = [];
 
+const formCont = document.querySelector('.addForm');
 const form = document.querySelector('.libForm');
 const title = document.querySelector('#title');
 const author = document.querySelector('#author');
@@ -31,9 +32,34 @@ Book.prototype.changeRead = function() {
 function addBookToLibrary(event) {
     const newBook = createBook();
     // check if duplicate exists else proceed
-    myLibrary.push(newBook);
+    if (ifDuplicateExists(newBook)) {
+        displayDuplicate();
+    } else {
+        removeDuplicate();
+        myLibrary.push(newBook);
+    }
     updateLibrary();
     event.preventDefault();
+}
+
+function ifDuplicateExists(bookToCheck) {
+    return myLibrary.some(libBook =>
+        Object.keys(bookToCheck).every(key => libBook[key] == bookToCheck[key])
+    );
+}
+
+function displayDuplicate() {
+    if (!form.nextElementSibling) {
+        const dupeString = document.createElement('p');
+        dupeString.textContent = 'Book already exists in Library';
+        formCont.appendChild(dupeString);
+    }
+}
+
+function removeDuplicate() {
+    if (form.nextElementSibling) {
+        formCont.removeChild(formCont.lastChild);
+    }
 }
 
 function createBook() {

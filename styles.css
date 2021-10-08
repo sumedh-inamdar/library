@@ -2,6 +2,13 @@ html {
   font-family: "Montserrat", sans-serif;
   background-color: #dda15e;
 }
+body {
+  position: relative;
+  min-height: 97.8vh;
+}
+main {
+  padding-bottom: 3rem;
+}
 header {
   display: flex;
   align-items: center;
@@ -28,7 +35,8 @@ header span {
   align-items: center;
 }
 
-header i, header p {
+header i,
+header p {
   margin: 15px;
 }
 
@@ -41,7 +49,7 @@ div.mainCont {
   justify-content: center;
   flex-wrap: wrap;
   /* background-color: #fefae0; */
-  height: min-content
+  height: min-content;
 }
 
 div.addForm {
@@ -67,7 +75,6 @@ form.libForm {
   width: 100%;
   flex-direction: column;
   align-items: center;
-
 }
 
 input.bookInput {
@@ -83,7 +90,8 @@ input.bookInput {
   color: hsl(28, 67%, 14%);
   transition: 0.2s all;
 }
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
   color: rgba(60, 34, 12, 0.5);
 }
 
@@ -138,6 +146,17 @@ button.submitButton:active {
   background-color: hsl(32, 65, 62);
 }
 
+div.addForm p {
+  margin: 0px 20px 20px 20px;
+  background-color: hsl(32, 65%, 82%);
+  border: 2px solid;
+  border-color: hsl(32, 65%, 92%);
+  padding: 5px;
+  border-radius: 5px;
+  color: hsl(0, 100%, 54%);
+  font-weight: 600;
+}
+
 div.libDisp {
   display: flex;
   flex-direction: column;
@@ -186,6 +205,29 @@ tbody tr:nth-child(even) {
   color: hsl(0, 0%, 0%);
 }
 
+footer {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 98%;
+  min-width: 300px;
+  height: 2rem;
+  color: hsl(28, 67%, 14%);
+}
+
+footer input {
+  display: inline;
+  height: 20px;
+  transition: transform 1s;
+}
+
+footer input:hover {
+  transform: scale(3) translate(0, -5px);
+}
+
 @media screen and (max-width: 550px) {
   header {
     font-size: 28px;
@@ -195,7 +237,8 @@ tbody tr:nth-child(even) {
     width: 100%;
   }
 
-  header i, header p {
+  header i,
+  header p {
     margin: 5px;
   }
   header i {
@@ -221,5 +264,4 @@ tbody tr:nth-child(even) {
   table {
     min-width: 369px;
   }
-
 }
