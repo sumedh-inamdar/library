@@ -16,10 +16,24 @@ header {
   /* padding-right: 550px; */
 }
 
+header div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 880px;
+}
+
+header span {
+  display: flex;
+  align-items: center;
+}
+
 header i, header p {
   margin: 15px;
-  position: relative;
-  right: 250px;
+}
+
+header button.submitButton {
+  margin: 15px;
 }
 
 div.mainCont {
@@ -27,7 +41,7 @@ div.mainCont {
   justify-content: center;
   flex-wrap: wrap;
   /* background-color: #fefae0; */
-  height: 600px;
+  height: min-content
 }
 
 div.addForm {
@@ -165,4 +179,42 @@ tbody tr:nth-child(even) {
 
 .fa-trash-alt {
   color: hsl(0, 0%, 0%);
+}
+
+@media screen and (max-width: 550px) {
+  header {
+    font-size: 28px;
+    min-width: 369px;
+  }
+  header div {
+    width: 100%;
+  }
+
+  header i, header p {
+    margin: 5px;
+  }
+  header i {
+    margin-left: 10px;
+  }
+  div.mainCont {
+    justify-content: space-between;
+  }
+
+  div.addForm {
+    /* display: inline; */
+    width: 100%;
+    margin: 10px;
+    min-width: 369px;
+  }
+
+  div.libDisp {
+    width: 100%;
+    margin: 10px;
+    min-width: 369px;
+  }
+
+  table {
+    min-width: 369px;
+  }
+
 }
