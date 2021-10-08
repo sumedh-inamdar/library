@@ -2,10 +2,7 @@
 
 Basic functions
 - Add book
-    - Form
 - Remove book
-    - Button
 - Change read status of book
-    - Slider
-- Display library
-    - Table
+- Display library in table format
+- (future) Login

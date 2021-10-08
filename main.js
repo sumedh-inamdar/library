@@ -31,12 +31,12 @@ Book.prototype.changeRead = function() {
 
 function addBookToLibrary(event) {
     const newBook = createBook();
-    // check if duplicate exists else proceed
     if (ifDuplicateExists(newBook)) {
         displayDuplicate();
     } else {
         removeDuplicate();
         myLibrary.push(newBook);
+        localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
     }
     updateLibrary();
     event.preventDefault();
@@ -56,7 +56,7 @@ function displayDuplicate() {
     }
 }
 
-function removeDuplicate() {
+function removeDuplicate() { //removes duplicate book message from formCont
     if (form.nextElementSibling) {
         formCont.removeChild(formCont.lastChild);
     }
@@ -73,6 +73,9 @@ function createBook() {
 function updateLibrary() {
     table.textContent = '';
     myLibrary.forEach((book, index) => {
+        
+        Object.setPrototypeOf(book, Book.prototype);
+        
         const row = document.createElement('tr');
 
         // Book title
@@ -98,6 +101,7 @@ function updateLibrary() {
 
         readIcon.addEventListener('click', () => {
             book.changeRead();
+            localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
             updateLibrary();
         });
         bookRead.appendChild(readIcon);
@@ -112,6 +116,7 @@ function updateLibrary() {
         removeIcon.addEventListener('click', (e) => {
             const indexDel = e.target.getAttribute('data-index');
             myLibrary.splice(indexDel, 1);
+            localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
             updateLibrary();
         })
         remove.appendChild(removeIcon);
@@ -120,4 +125,14 @@ function updateLibrary() {
         table.appendChild(row);
     });
 }
+// Startup sequence
+if (localStorage.myLibrary) {
+    //load localStorage data into myLibrary (global variable)
+    myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+    
+    updateLibrary();
+} else {
+    localStorage.setItem('myLibrary', JSON.stringify([]));
+}
+
 
