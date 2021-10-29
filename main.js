@@ -48,13 +48,13 @@ function ifDuplicateExists(bookToCheck) {
     );
 }
 
-function displayDuplicate() {
-    if (!form.nextElementSibling) {
-        const dupeString = document.createElement('p');
-        dupeString.textContent = 'Book already exists in Library';
-        formCont.appendChild(dupeString);
-    }
-}
+// function displayDuplicate() {
+//     if (!form.nextElementSibling) {
+//         const dupeString = document.createElement('p');
+//         dupeString.textContent = 'Book already exists in Library';
+//         formCont.appendChild(dupeString);
+//     }
+// }
 
 function removeDuplicate() { //removes duplicate book message from formCont
     if (form.nextElementSibling) {
