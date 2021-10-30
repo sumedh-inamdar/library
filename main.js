@@ -1,5 +1,9 @@
-let myLibrary = [];
+/*
+Library
+Creator: Sumedh Inamdar
+*/
 
+// DOM nodes
 const formCont = document.querySelector('.addForm');
 const form = document.querySelector('.libForm');
 const title = document.querySelector('#title');
@@ -8,131 +12,127 @@ const pages = document.querySelector('#pages');
 const read = document.querySelector('#read');
 const table = document.querySelector('tbody');
 
-form.addEventListener('submit', addBookToLibrary);
-
-
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.info = function() {
-    let str = title + ' by ' + author + ', ';
-    str += pages + ' pages, ';
-    str += read ? 'read' : 'not read yet';
-    return str;
-}
-
-Book.prototype.changeRead = function() {
-    this.read = !this.read;
-}
-
-function addBookToLibrary(event) {
-    const newBook = createBook();
-    if (ifDuplicateExists(newBook)) {
-        displayDuplicate();
-    } else {
-        removeDuplicate();
-        myLibrary.push(newBook);
-        localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
-    updateLibrary();
-    event.preventDefault();
-}
-
-function ifDuplicateExists(bookToCheck) {
-    return myLibrary.some(libBook =>
-        Object.keys(bookToCheck).every(key => libBook[key] == bookToCheck[key])
-    );
-}
-
-// function displayDuplicate() {
-//     if (!form.nextElementSibling) {
-//         const dupeString = document.createElement('p');
-//         dupeString.textContent = 'Book already exists in Library';
-//         formCont.appendChild(dupeString);
-//     }
-// }
-
-function removeDuplicate() { //removes duplicate book message from formCont
-    if (form.nextElementSibling) {
-        formCont.removeChild(formCont.lastChild);
+    changeRead = () => {
+        this.read = !this.read;
     }
 }
-
-function createBook() {
-    const bookTitle = title.value;
-    const bookAuthor = author.value;
-    const bookPages = pages.valueAsNumber;
-    const bookRead = read.checked;
-    return new Book(bookTitle, bookAuthor, bookPages, bookRead);
-}
-
-function updateLibrary() {
-    table.textContent = '';
-    myLibrary.forEach((book, index) => {
+class Library {
+    constructor() {
+        this.myLib = [];
+    }
+    addBook() {
+        const newBook = new Book(
+            title.value,
+            author.value,
+            pages.valueAsNumber,
+            read.checked);
         
-        Object.setPrototypeOf(book, Book.prototype);
-        
-        const row = document.createElement('tr');
+        if (this.duplicateExists(newBook)) {
+            this.displayDuplicate();
+        } else {
+            this.removeDuplicate();
+            this.myLib.push(newBook);
+            localStorage.setItem('myLibrary', JSON.stringify(this.myLib));
+        }
 
-        // Book title
-        const bookTitle = document.createElement('td');
-        bookTitle.textContent = book.title;
-        row.appendChild(bookTitle);
+        this.updateLibrary();
+        // event.preventDefault();
+    }
+    
+    duplicateExists(inputBook) {
+        return this.myLib.some(libBook => Object.keys(inputBook).every(key => libBook[key] == inputBook[key]));
+    }
+    
+    displayDuplicate() {
+        if (!form.nextElementSibling) {
+            const dupeString = document.createElement('p');
+            dupeString.textContent = 'Book already exists in Library';
+            formCont.appendChild(dupeString);
+        }
+    }
 
-        // Book Author
-        const bookAuthor = document.createElement('td');
-        bookAuthor.textContent = book.author;
-        row.appendChild(bookAuthor);
+    removeDuplicate() {
+        //removes duplicate book message from formCont
+        if (form.nextElementSibling) {
+            formCont.removeChild(formCont.lastChild);
+        }
+    }
 
-        // Book Pages
-        const bookPages = document.createElement('td');
-        bookPages.textContent = book.pages;
-        row.appendChild(bookPages);
+    updateLibrary() {
+        table.textContent = '';
+        this.myLib.forEach((book, index) => {
+            
+            //Create row
+            const row = document.createElement('tr');
 
-        // Book read
-        const bookRead = document.createElement('td');
-        const readIcon = document.createElement('i');
-        const readSelect = book.read ? 'fa-check-circle' : 'fa-times-circle';
-        readIcon.classList.add('far', readSelect);
+            //Add title to row
+            const bookTitle = document.createElement('td');
+            bookTitle.textContent = book.title;
+            row.appendChild(bookTitle);
 
-        readIcon.addEventListener('click', () => {
-            book.changeRead();
-            localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-            updateLibrary();
+            //Add author to row
+            const bookAuthor = document.createElement('td');
+            bookAuthor.textContent = book.author;
+            row.appendChild(bookAuthor);
+
+            //Add pages to row
+            const bookPages = document.createElement('td');
+            bookPages.textContent = book.pages;
+            row.appendChild(bookPages);
+
+            //Add read to row
+            const bookRead = document.createElement('td');
+            const readIcon = document.createElement('i');
+            const readSelect = book.read ? 'fa-check-circle' : 'fa-times-circle';
+            readIcon.classList.add('far', readSelect);
+            readIcon.addEventListener('click', () => {
+                book.changeRead();
+                localStorage.setItem('myLibrary', JSON.stringify(this.myLib));
+                this.updateLibrary();
+            });
+            bookRead.appendChild(readIcon);
+            row.appendChild(bookRead);    
+            
+            //Add delete to row
+            const remove = document.createElement('td');
+            const removeIcon = document.createElement('i');
+            removeIcon.classList.add('far', 'fa-trash-alt');
+            removeIcon.setAttribute('data-index', index);
+            removeIcon.addEventListener('click', (e) => {
+                const indexDel = e.target.getAttribute('data-index');
+                this.myLib.splice(indexDel, 1);
+                localStorage.setItem('myLibrary', JSON.stringify(this.myLib));
+                this.updateLibrary();
+            })
+            remove.appendChild(removeIcon);
+            row.appendChild(remove);
+
+            //Append row to table
+            table.appendChild(row);
+
         });
-        bookRead.appendChild(readIcon);
-        row.appendChild(bookRead);
-        
-
-        // Book Removal
-        const remove = document.createElement('td');
-        const removeIcon = document.createElement('i');
-        removeIcon.classList.add('far', 'fa-trash-alt');
-        removeIcon.setAttribute('data-index', index);
-        removeIcon.addEventListener('click', (e) => {
-            const indexDel = e.target.getAttribute('data-index');
-            myLibrary.splice(indexDel, 1);
-            localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-            updateLibrary();
-        })
-        remove.appendChild(removeIcon);
-        row.appendChild(remove);
-
-        table.appendChild(row);
-    });
+    }
 }
+
+let myLibrary = new Library();
+
+form.addEventListener('submit', (event) => {
+    myLibrary.addBook();
+    event.preventDefault();
+});
+
 // Startup sequence
 if (localStorage.myLibrary) {
     //load localStorage data into myLibrary (global variable)
-    myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-    
-    updateLibrary();
+    myLibrary.myLib = JSON.parse(localStorage.getItem('myLibrary'));
+    myLibrary.updateLibrary();
 } else {
     localStorage.setItem('myLibrary', JSON.stringify([]));
 }
-
-
